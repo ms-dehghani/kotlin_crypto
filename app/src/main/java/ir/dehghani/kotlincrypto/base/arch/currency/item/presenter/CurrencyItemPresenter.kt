@@ -25,10 +25,10 @@ class CurrencyItemPresenter private constructor(
 
 
     fun getCurrency(ID: String) {
-        RunOnBackground {
+        RunOnBackground({
             val detail = getModel().getCurrency(ID)
             getState().getItemDetail().postValue(detail)
-        }
+        }, this::getCurrency.name)
     }
 
 

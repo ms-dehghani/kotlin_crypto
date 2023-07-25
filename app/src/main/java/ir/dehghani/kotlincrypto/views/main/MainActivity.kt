@@ -47,9 +47,7 @@ class MainActivity : BaseActivity<MainPagePresenterContract>() {
 
 @OptIn(DelicateCoroutinesApi::class)
 fun doInBackground(presenter: MainPagePresenterContract) {
-    println("before call")
     presenter.getAllCurrency()
-    println("after call")
 }
 
 
