@@ -8,7 +8,7 @@ import ir.dehghani.kotlincrypto.utils.RunOnBackground
 
 class CurrencyListPresenter private constructor(
     model: CurrencyListModel = CurrencyListModel.getInstance(Repository.getInstance()),
-    state: CurrencyListState = CurrencyListState.getInstance()
+    state: CurrencyListState = CurrencyListState
 ) : BasePresenter<CurrencyListModel, CurrencyListState>(model, state) {
 
     companion object {
@@ -27,8 +27,8 @@ class CurrencyListPresenter private constructor(
         println("run getAllCurrency")
         RunOnBackground {
             println("in background")
-            val dataList = model.getAllCurrency()
-            state.itemList.postValue(dataList)
+            val dataList = getModel().getAllCurrency()
+            getState().getItemList().postValue(dataList)
             println("end background")
         }
 
