@@ -8,7 +8,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Repository.init(null)
+        Repository.init(null , null)
 
     }
 

@@ -1,10 +1,22 @@
 package ir.dehghani.kotlincrypto.base.arch.base
 
+import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.lifecycle.ViewModel
 
-abstract class BaseActivity<T> : ComponentActivity() {
+abstract class BaseActivity<T : ViewModel> : ComponentActivity() {
 
-    val presenter: T = this.setPresenter()
+    private lateinit var viewModel: T
 
-    abstract fun setPresenter(): T
+    abstract fun setViewModel(): T
+
+    fun getViewModel(): T {
+        return viewModel
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = setViewModel();
+    }
+
 }

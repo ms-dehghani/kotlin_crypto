@@ -8,7 +8,7 @@ import ir.dehghani.kotlincrypto.utils.RunOnBackground
 
 class CurrencyItemPresenter private constructor(
     model: CurrencyItemModel = CurrencyItemModel.getInstance(Repository.getInstance()),
-    state: CurrencyItemState = CurrencyItemState.getInstance()
+    state: CurrencyItemState = CurrencyItemState
 ) :
     BasePresenter<CurrencyItemModel, CurrencyItemState>(model, state) {
 
@@ -26,8 +26,8 @@ class CurrencyItemPresenter private constructor(
 
     fun getCurrency(ID: String) {
         RunOnBackground {
-            val detail = model.getCurrency(ID)
-            state.itemDetail.postValue(detail)
+            val detail = getModel().getCurrency(ID)
+            getState().getItemDetail().postValue(detail)
         }
     }
 

@@ -9,38 +9,34 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import ir.dehghani.kotlincrypto.base.arch.base.BaseActivity
-import ir.dehghani.kotlincrypto.base.arch.currency.item.presenter.CurrencyItemPresenter
-import ir.dehghani.kotlincrypto.base.arch.currency.list.presenter.CurrencyListPresenter
 import ir.dehghani.kotlincrypto.ui.theme.KotlinCryptoTheme
 import ir.dehghani.kotlincrypto.views.main.presenter.MainPagePresenter
+import ir.dehghani.kotlincrypto.views.main.presenter.MainPagePresenterContract
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
-class MainActivity : BaseActivity<MainPagePresenter>() {
+class MainActivity : BaseActivity<MainPagePresenterContract>() {
 
     var count = 0
-    override fun setPresenter(): MainPagePresenter {
-        return MainPagePresenter(CurrencyListPresenter.getInstance() , CurrencyItemPresenter.getInstance())
+    override fun setViewModel(): MainPagePresenterContract {
+        return ViewModelProvider(this)[MainPagePresenter::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             KotlinCryptoTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting(presenter,"$count")
+                    Greeting(getViewModel(), "$count")
                 }
             }
         }
 
-        presenter.getCurrencyListLiveData().observe(this as LifecycleOwner) {
+        getViewModel().getCurrencyListLiveData().observe(this as LifecycleOwner) {
             println(it.size)
         }
 
@@ -50,7 +46,7 @@ class MainActivity : BaseActivity<MainPagePresenter>() {
 }
 
 @OptIn(DelicateCoroutinesApi::class)
-fun doInBackground(presenter: MainPagePresenter) {
+fun doInBackground(presenter: MainPagePresenterContract) {
     println("before call")
     presenter.getAllCurrency()
     println("after call")
@@ -58,7 +54,7 @@ fun doInBackground(presenter: MainPagePresenter) {
 
 
 @Composable
-fun Greeting(presenter: MainPagePresenter , name: String, modifier: Modifier = Modifier) {
+fun Greeting(presenter: MainPagePresenterContract, name: String, modifier: Modifier = Modifier) {
     ClickableText(
         text = AnnotatedString("Hello $name!"),
         modifier = modifier,
