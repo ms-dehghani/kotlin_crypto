@@ -24,14 +24,10 @@ class CurrencyListPresenter private constructor(
 
 
     fun getAllCurrency() {
-        println("run getAllCurrency")
-        RunOnBackground {
-            println("in background")
+        RunOnBackground({
             val dataList = getModel().getAllCurrency()
             getState().getItemList().postValue(dataList)
-            println("end background")
-        }
-
+        } ,this::getAllCurrency.name)
     }
 
 

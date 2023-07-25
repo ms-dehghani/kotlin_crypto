@@ -4,8 +4,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-fun RunOnBackground(callingFunction: () -> Unit) {
+private val callQueue: ArrayList<String> = arrayListOf()
+
+fun RunOnBackground(callingFunction: () -> Unit  ,  funID: String) {
     GlobalScope.launch(Dispatchers.IO) {
-        callingFunction.invoke()
+        println("fun id= $funID")
+        if(!callQueue.contains(funID)) {
+            callQueue.add(funID)
+            callingFunction.invoke()
+            callQueue.remove(funID)
+        }
     }
 }
