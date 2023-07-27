@@ -1,9 +1,8 @@
 package ir.dehghani.kotlincrypto.views.main.presenter
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import ir.dehghani.kotlincrypto.base.arch.currency.item.presenter.CurrencyItemPresenter
-import ir.dehghani.kotlincrypto.base.arch.currency.list.presenter.CurrencyListPresenter
+import ir.dehghani.kotlincrypto.model.items.currency.item.presenter.CurrencyItemPresenter
+import ir.dehghani.kotlincrypto.model.items.currency.list.presenter.CurrencyListPresenter
 import ir.dehghani.kotlincrypto.pojo.CurrencyItem
 
 class MainPagePresenter(
