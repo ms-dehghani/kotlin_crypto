@@ -1,7 +1,7 @@
 package ir.dehghani.kotlincrypto
 
 import android.app.Application
-import ir.dehghani.kotlincrypto.repository.Repository
+import ir.dehghani.kotlincrypto.model.repository.Repository
 
 class App : Application() {
 
