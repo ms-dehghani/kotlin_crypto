@@ -4,6 +4,7 @@ import ir.dehghani.kotlincrypto.base.arch.base.BaseModel
 import ir.dehghani.kotlincrypto.model.items.currency.list.CurrencyListModelImpl
 import ir.dehghani.kotlincrypto.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoMiddlewareFunc
+import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 
 class CurrencyListModel(private val repo: CurrencyListModelImpl) : BaseModel() {
 
@@ -18,8 +19,8 @@ class CurrencyListModel(private val repo: CurrencyListModelImpl) : BaseModel() {
             }
     }
 
-    fun getAllCurrency(repoMiddlewareFunc: RepoMiddlewareFunc = RepoMiddlewareFunc()): List<CurrencyItem> {
-        return repo.getAllCurrency(repoMiddlewareFunc)
+    fun getAllCurrency(repoMiddlewareFunc: RepoMiddlewareFunc = RepoMiddlewareFunc(), result: RepoResultCallback<List<CurrencyItem>>) {
+        repo.getAllCurrency(repoMiddlewareFunc, result)
     }
 
 }

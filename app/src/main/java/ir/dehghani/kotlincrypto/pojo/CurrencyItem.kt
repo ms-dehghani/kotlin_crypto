@@ -1,6 +1,9 @@
 package ir.dehghani.kotlincrypto.pojo
 
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import com.google.gson.reflect.TypeToken
+import org.json.JSONArray
 import org.json.JSONObject
 
 data class CurrencyItem(
@@ -22,6 +25,14 @@ data class CurrencyItem(
 
 }
 
-fun currencyItemEmpty() : CurrencyItem {
-    return CurrencyItem(0,"","",JSONObject())
+fun currencyItemEmpty(): CurrencyItem {
+    return CurrencyItem(0, "", "", JSONObject())
+}
+
+fun currencyListParser(jsonArray: Any): List<CurrencyItem> {
+    var result = arrayListOf<CurrencyItem>()
+    if (jsonArray is JSONArray) {
+        result = Gson().fromJson(jsonArray.toString() , object : TypeToken<List<CurrencyItem?>?>() {}.type)
+    }
+    return result
 }

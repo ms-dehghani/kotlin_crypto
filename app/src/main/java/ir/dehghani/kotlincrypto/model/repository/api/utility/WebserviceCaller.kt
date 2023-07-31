@@ -1,5 +1,6 @@
 package ir.dehghani.kotlincrypto.model.repository.api.utility
 
+import ir.dehghani.kotlincrypto.BuildConfig
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -12,7 +13,7 @@ class WebserviceCaller private constructor(private val client: OkHttpClient) {
     companion object {
 
         @Volatile
-        private var instance: WebserviceCaller? = null
+        private lateinit var instance: WebserviceCaller
 
         fun init(client: OkHttpClient) {
             instance = WebserviceCaller(client)
@@ -25,6 +26,7 @@ class WebserviceCaller private constructor(private val client: OkHttpClient) {
         val requestBuilder = Request.Builder()
             .addHeader("content-type", "application/json; charset=utf-8")
             .addHeader("accept", "application/json")
+            .addHeader("X-CMC_PRO_API_KEY", BuildConfig.API_KEY)
             .url(url)
 
         when (requestType) {

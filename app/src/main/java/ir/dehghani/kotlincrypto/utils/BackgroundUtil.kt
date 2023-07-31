@@ -1,15 +1,16 @@
 package ir.dehghani.kotlincrypto.utils
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 private val callQueue: ArrayList<String> = arrayListOf()
 
-fun RunOnBackground(callingFunction: () -> Unit  ,  funID: String) {
+@OptIn(DelicateCoroutinesApi::class)
+fun runOnBackground(callingFunction: () -> Unit, funID: String) {
     GlobalScope.launch(Dispatchers.IO) {
-        println("fun id= $funID")
-        if(!callQueue.contains(funID)) {
+        if (!callQueue.contains(funID)) {
             callQueue.add(funID)
             callingFunction.invoke()
             callQueue.remove(funID)

@@ -4,6 +4,7 @@ import ir.dehghani.kotlincrypto.base.arch.base.BaseModel
 import ir.dehghani.kotlincrypto.model.items.currency.item.CurrencyItemModelImpl
 import ir.dehghani.kotlincrypto.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoMiddlewareFunc
+import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 
 class CurrencyItemModel private constructor(private val repo: CurrencyItemModelImpl) : BaseModel() {
 
@@ -18,8 +19,8 @@ class CurrencyItemModel private constructor(private val repo: CurrencyItemModelI
             }
     }
 
-    fun getCurrency(ID: String,repoMiddlewareFunc: RepoMiddlewareFunc = RepoMiddlewareFunc()): CurrencyItem {
-        return repo.getCurrency(ID,repoMiddlewareFunc)
+    fun getCurrency(ID: String, repoMiddlewareFunc: RepoMiddlewareFunc = RepoMiddlewareFunc(), result: RepoResultCallback<CurrencyItem>) {
+        repo.getCurrency(ID, repoMiddlewareFunc, result)
     }
 
 }
