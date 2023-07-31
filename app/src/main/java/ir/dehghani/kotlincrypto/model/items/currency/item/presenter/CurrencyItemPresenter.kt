@@ -5,7 +5,10 @@ import ir.dehghani.kotlincrypto.model.items.currency.item.model.CurrencyItemMode
 import ir.dehghani.kotlincrypto.model.items.currency.item.state.CurrencyItemState
 import ir.dehghani.kotlincrypto.model.repository.Repository
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoMiddlewareFunc
-import ir.dehghani.kotlincrypto.utils.RunOnBackground
+import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
+import ir.dehghani.kotlincrypto.pojo.CurrencyItem
+import ir.dehghani.kotlincrypto.utils.runOnBackground
+import java.lang.Exception
 
 class CurrencyItemPresenter private constructor(
     model: CurrencyItemModel = CurrencyItemModel.getInstance(Repository.getInstance()),
@@ -25,10 +28,17 @@ class CurrencyItemPresenter private constructor(
     }
 
 
-    fun getCurrency(ID: String,repoMiddlewareFunc: RepoMiddlewareFunc = RepoMiddlewareFunc()) {
-        RunOnBackground({
-            val detail = getModel().getCurrency(ID,repoMiddlewareFunc)
-            getState().getItemDetail().postValue(detail)
+    fun getCurrency(ID: String, repoMiddlewareFunc: RepoMiddlewareFunc = RepoMiddlewareFunc()) {
+        runOnBackground({
+            val result = object : RepoResultCallback<CurrencyItem> {
+                override fun onError(ex: Exception) {
+                }
+
+                override fun onResponse(detail: CurrencyItem) {
+                    getState().getItemDetail().postValue(detail)
+                }
+            }
+            getModel().getCurrency(ID, repoMiddlewareFunc, result)
         }, this::getCurrency.name)
     }
 
