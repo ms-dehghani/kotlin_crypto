@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import ir.dehghani.kotlincrypto.base.arch.base.BaseActivity
+import ir.dehghani.kotlincrypto.base.arch.BaseActivity
 import ir.dehghani.kotlincrypto.ui.theme.KotlinCryptoTheme
 import ir.dehghani.kotlincrypto.views.main.presenter.MainPagePresenter
 import ir.dehghani.kotlincrypto.views.main.presenter.MainPagePresenterContract

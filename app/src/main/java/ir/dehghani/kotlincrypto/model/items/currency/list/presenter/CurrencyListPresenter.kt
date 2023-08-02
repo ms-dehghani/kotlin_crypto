@@ -1,6 +1,6 @@
 package ir.dehghani.kotlincrypto.model.items.currency.list.presenter
 
-import ir.dehghani.kotlincrypto.base.arch.base.BasePresenter
+import ir.dehghani.kotlincrypto.base.arch.BasePresenter
 import ir.dehghani.kotlincrypto.model.items.currency.list.model.CurrencyListModel
 import ir.dehghani.kotlincrypto.model.items.currency.list.state.CurrencyListState
 import ir.dehghani.kotlincrypto.model.repository.Repository

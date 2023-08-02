@@ -1,4 +1,4 @@
-package ir.dehghani.kotlincrypto.base.arch.base
+package ir.dehghani.kotlincrypto.base.arch
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
