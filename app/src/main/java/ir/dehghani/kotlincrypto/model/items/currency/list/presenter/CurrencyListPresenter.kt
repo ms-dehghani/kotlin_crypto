@@ -4,7 +4,6 @@ import ir.dehghani.kotlincrypto.base.arch.BasePresenter
 import ir.dehghani.kotlincrypto.model.items.currency.list.model.CurrencyListModel
 import ir.dehghani.kotlincrypto.model.items.currency.list.state.CurrencyListState
 import ir.dehghani.kotlincrypto.model.repository.Repository
-import ir.dehghani.kotlincrypto.model.repository.utils.RepoMiddlewareFunc
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 import ir.dehghani.kotlincrypto.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.utils.runOnBackground
@@ -27,7 +26,7 @@ class CurrencyListPresenter private constructor(
     }
 
 
-    fun getAllCurrency(repoMiddlewareFunc: RepoMiddlewareFunc = RepoMiddlewareFunc()) {
+    fun getAllCurrency() {
         runOnBackground({
             val result = object : RepoResultCallback<List<CurrencyItem>> {
                 override fun onError(ex: Exception) {
@@ -37,7 +36,7 @@ class CurrencyListPresenter private constructor(
                     getState().getItemList().postValue(data)
                 }
             }
-            getModel().getAllCurrency(repoMiddlewareFunc, result)
+            getModel().getAllCurrency(result)
         }, this::getAllCurrency.name)
     }
 
