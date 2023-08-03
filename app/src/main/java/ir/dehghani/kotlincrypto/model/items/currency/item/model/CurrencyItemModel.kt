@@ -5,7 +5,7 @@ import ir.dehghani.kotlincrypto.model.items.currency.item.CurrencyItemModelImpl
 import ir.dehghani.kotlincrypto.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 
-class CurrencyItemModel private constructor(private val repo: CurrencyItemModelImpl) : BaseModel() {
+class CurrencyItemModel private constructor(private var repo: CurrencyItemModelImpl) : BaseModel() {
 
     companion object {
 
