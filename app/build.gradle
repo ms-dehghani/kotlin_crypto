@@ -32,8 +32,15 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
+
+    testOptions {
+        // Used for Unit testing Android dependent elements in /test folder
+        unitTests.includeAndroidResources  = true
+        unitTests.returnDefaultValues = true
+    }
+
     buildFeatures {
         compose true
         buildConfig true
@@ -95,4 +102,7 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.4.3'
     debugImplementation 'androidx.compose.ui:ui-tooling:1.4.3'
     debugImplementation 'androidx.compose.ui:ui-test-manifest:1.4.3'
+    testImplementation "org.mockito:mockito-core:5.4.0"
+    testImplementation 'net.datafaker:datafaker:2.0.1'
+
 }

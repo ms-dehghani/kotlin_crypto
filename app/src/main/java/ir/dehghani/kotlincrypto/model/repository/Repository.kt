@@ -2,7 +2,6 @@ package ir.dehghani.kotlincrypto.model.repository
 
 import ir.dehghani.kotlincrypto.model.FullModelImpl
 import ir.dehghani.kotlincrypto.pojo.CurrencyItem
-import ir.dehghani.kotlincrypto.model.repository.utils.RepoMiddlewareFunc
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 import org.json.JSONObject
 
@@ -23,11 +22,11 @@ class Repository private constructor(private val serviceRepo: FullModelImpl?, pr
     }
 
 
-    override fun getAllCurrency(repoMiddlewareFunc: RepoMiddlewareFunc, result: RepoResultCallback<List<CurrencyItem>>) {
-        return serviceRepo!!.getAllCurrency(repoMiddlewareFunc, result)
+    override fun getAllCurrency(result: RepoResultCallback<List<CurrencyItem>>) {
+        return serviceRepo!!.getAllCurrency(result)
     }
 
-    override fun getCurrency(ID: String, repoMiddlewareFunc: RepoMiddlewareFunc, result: RepoResultCallback<CurrencyItem>) {
-        return serviceRepo!!.getCurrency(ID, repoMiddlewareFunc, result)
+    override fun getCurrency(ID: String, result: RepoResultCallback<CurrencyItem>) {
+        return serviceRepo!!.getCurrency(ID, result)
     }
 }
