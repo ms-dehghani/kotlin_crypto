@@ -25,7 +25,7 @@ class CurrencyItemModelTest {
 
         lateinit var callbackItem: CurrencyItem
 
-        `when`(itemModel.getCurrency("1", result = responseCallback)).then {
+        `when`(itemModel.getCurrency(resultItem.id, result = responseCallback)).then {
             synchronized(this) {
                 callbackItem = resultItem
                 responseCallback.onResponse(resultItem)
@@ -38,20 +38,20 @@ class CurrencyItemModelTest {
             }
         }
 
-        itemModel.getCurrency("1", result = responseCallback)
-        verify(itemModel, times(1)).getCurrency("1", result = responseCallback)
+        itemModel.getCurrency(resultItem.id, result = responseCallback)
+        verify(itemModel, times(1)).getCurrency(resultItem.id, result = responseCallback)
     }
 
     @Test
     fun checkOnSuccess() {
         val resultItem = getFakeCurrency()
 
-        `when`(itemModel.getCurrency("1", result = responseCallback)).then {
+        `when`(itemModel.getCurrency(resultItem.id, result = responseCallback)).then {
             responseCallback.onResponse(resultItem)
         }
 
-        itemModel.getCurrency("1", result = responseCallback)
-        verify(itemModel, times(1)).getCurrency("1", result = responseCallback)
+        itemModel.getCurrency(resultItem.id, result = responseCallback)
+        verify(itemModel, times(1)).getCurrency(resultItem.id, result = responseCallback)
         verify(responseCallback, times(1)).onResponse(resultItem)
     }
 
@@ -77,17 +77,17 @@ class CurrencyItemModelTest {
     fun checkOnError() {
         val resultItem = Exception()
 
-        `when`(itemModel.getCurrency("1", result = responseCallback)).then {
+        `when`(itemModel.getCurrency("", result = responseCallback)).then {
             responseCallback.onError(resultItem)
         }
 
-        itemModel.getCurrency("1", result = responseCallback)
-        verify(itemModel, times(1)).getCurrency("1", result = responseCallback)
+        itemModel.getCurrency("", result = responseCallback)
+        verify(itemModel, times(1)).getCurrency("", result = responseCallback)
         verify(responseCallback, times(1)).onError(resultItem)
     }
 
 
-    private fun getFakeCurrency() = CurrencyItem(faker.number().positive(), faker.name().firstName(), faker.name().lastName(), JSONObject())
+    private fun getFakeCurrency() = CurrencyItem(faker.number().positive().toString(), faker.name().firstName(), faker.name().lastName(), JSONObject())
 
 }
 

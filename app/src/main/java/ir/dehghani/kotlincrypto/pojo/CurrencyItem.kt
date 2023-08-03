@@ -8,7 +8,7 @@ import org.json.JSONObject
 
 data class CurrencyItem(
     @SerializedName("id")
-    val id: Int,
+    val id: String,
     @SerializedName("name")
     val name: String,
     @SerializedName("symbol")
@@ -26,7 +26,7 @@ data class CurrencyItem(
 }
 
 fun currencyItemEmpty(): CurrencyItem {
-    return CurrencyItem(0, "", "", JSONObject())
+    return CurrencyItem("0", "", "", JSONObject())
 }
 
 fun currencyListParser(jsonArray: Any): List<CurrencyItem> {
