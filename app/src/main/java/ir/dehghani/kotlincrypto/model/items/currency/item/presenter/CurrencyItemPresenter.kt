@@ -9,10 +9,7 @@ import ir.dehghani.kotlincrypto.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.utils.runOnBackground
 import java.lang.Exception
 
-class CurrencyItemPresenter private constructor(
-    model: CurrencyItemModel = CurrencyItemModel.getInstance(Repository.getInstance()),
-    state: CurrencyItemState = CurrencyItemState
-) :
+class CurrencyItemPresenter private constructor(model: CurrencyItemModel, state: CurrencyItemState) :
     BasePresenter<CurrencyItemModel, CurrencyItemState>(model, state) {
 
     companion object {
@@ -20,9 +17,12 @@ class CurrencyItemPresenter private constructor(
         @Volatile
         private var instance: CurrencyItemPresenter? = null
 
-        fun getInstance() =
+        fun getInstance(
+            model: CurrencyItemModel = CurrencyItemModel.getInstance(Repository.getInstance()),
+            state: CurrencyItemState = CurrencyItemState
+        ) =
             instance ?: synchronized(this) {
-                instance ?: CurrencyItemPresenter().also { instance = it }
+                instance ?: CurrencyItemPresenter(model, state).also { instance = it }
             }
     }
 

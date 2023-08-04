@@ -1,25 +1,27 @@
 package ir.dehghani.kotlincrypto.model.items.currency.item.presenter
 
-import ir.dehghani.kotlincrypto.SingletonBaseTest
+import ir.dehghani.kotlincrypto.BaseClassTest
+import ir.dehghani.kotlincrypto.getOrAwaitValue
 import ir.dehghani.kotlincrypto.model.items.currency.item.CurrencyItemModelImpl
 import ir.dehghani.kotlincrypto.model.items.currency.item.model.CurrencyItemModel
+import ir.dehghani.kotlincrypto.model.items.currency.item.state.CurrencyItemState
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 import ir.dehghani.kotlincrypto.pojo.CurrencyItem
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.runTest
 import net.datafaker.Faker
 import org.json.JSONObject
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.*
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.mockStatic
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
-import java.lang.reflect.Field
 
 
-class CurrencyItemPresenterTest : SingletonBaseTest() {
+class CurrencyItemPresenterClassTest : BaseClassTest() {
 
     var faker = Faker()
 
@@ -32,41 +34,27 @@ class CurrencyItemPresenterTest : SingletonBaseTest() {
     }
 
     @Test
-    fun getCurrency() {
-        checkOnResponseData()
-        checkOnErrorData()
+    fun checkSuccessResponse() = runTest(UnconfinedTestDispatcher()) {
+
+        val stateManager = CurrencyItemState
+        val presenter = CurrencyItemPresenter.getInstance(model = model, state = stateManager)
+
+        val itemResponse = getFakeCurrency()
+
+        `when`(model.getCurrency(org.mockito.kotlin.any(), org.mockito.kotlin.any())).then {
+            (it.arguments[1] as RepoResultCallback<CurrencyItem>).onResponse(itemResponse)
+        }
+
+        presenter.getCurrency("")
+        val value = stateManager.getItemDetail().getOrAwaitValue()
+
+        assert(value != null)
+        assert(value.id == itemResponse.id)
     }
 
 
-    private fun checkOnResponseData() {
-
-        val fakeResult = getFakeCurrency()
-        lateinit var resultItem: CurrencyItem
-
-        val resultCallback = object : RepoResultCallback<CurrencyItem> {
-            override fun onResponse(data: CurrencyItem) {
-                resultItem = data
-            }
-
-            override fun onError(ex: Exception) {
-            }
-
-        }
-
-        `when`(model.getCurrency(fakeResult.id, resultCallback)).then {
-            synchronized(this) {
-                resultCallback.onResponse(fakeResult)
-            }
-        }
-
-        model.getCurrency(fakeResult.id, resultCallback)
-
-        verify(model, Mockito.times(1)).getCurrency(fakeResult.id, result = resultCallback)
-        assertEquals(resultItem.id, fakeResult.id)
-
-    }
-
-    private fun checkOnErrorData() {
+    @Test
+    fun checkUnSuccessResponse() {
 
         val fakeResult = getFakeCurrency()
         lateinit var resultItem: Exception
@@ -82,9 +70,7 @@ class CurrencyItemPresenterTest : SingletonBaseTest() {
         }
 
         `when`(model.getCurrency(fakeResult.id, resultCallback)).then {
-            synchronized(this) {
-                resultCallback.onError(Exception(""))
-            }
+            resultCallback.onError(Exception(""))
         }
 
         model.getCurrency(fakeResult.id, resultCallback)

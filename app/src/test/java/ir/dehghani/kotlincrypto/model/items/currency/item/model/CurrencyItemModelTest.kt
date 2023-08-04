@@ -6,6 +6,7 @@ import net.datafaker.Faker
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.mockito.Mockito.any
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
@@ -23,19 +24,13 @@ class CurrencyItemModelTest {
     fun getCurrency() {
         val resultItem = getFakeCurrency()
 
-        lateinit var callbackItem: CurrencyItem
 
-        `when`(itemModel.getCurrency(resultItem.id, result = responseCallback)).then {
-            synchronized(this) {
-                callbackItem = resultItem
-                responseCallback.onResponse(resultItem)
-            }
+        `when`(itemModel.getCurrency(org.mockito.kotlin.any(), org.mockito.kotlin.any())).then {
+            (it.arguments[1] as RepoResultCallback<CurrencyItem>).onResponse(resultItem)
         }
 
-        `when`(responseCallback.onResponse(resultItem)).then {
-            synchronized(this) {
-                assertEquals(resultItem.id, callbackItem.id)
-            }
+        `when`(responseCallback.onResponse(org.mockito.kotlin.any())).then {
+            assertEquals((it.arguments[0] as CurrencyItem).id, resultItem.id)
         }
 
         itemModel.getCurrency(resultItem.id, result = responseCallback)
@@ -46,8 +41,8 @@ class CurrencyItemModelTest {
     fun checkOnSuccess() {
         val resultItem = getFakeCurrency()
 
-        `when`(itemModel.getCurrency(resultItem.id, result = responseCallback)).then {
-            responseCallback.onResponse(resultItem)
+        `when`(itemModel.getCurrency(org.mockito.kotlin.any(), org.mockito.kotlin.any())).then {
+            (it.arguments[1] as RepoResultCallback<CurrencyItem>).onResponse(resultItem)
         }
 
         itemModel.getCurrency(resultItem.id, result = responseCallback)
@@ -61,10 +56,9 @@ class CurrencyItemModelTest {
 
         lateinit var item: CurrencyItem
 
-        `when`(responseCallback.onResponse(resultItem)).then {
-            synchronized(this) {
-                item = resultItem
-            }
+        `when`(responseCallback.onResponse(org.mockito.kotlin.any())).then {
+            item = it.arguments[0] as CurrencyItem
+            any()
         }
 
         responseCallback.onResponse(resultItem)
@@ -77,8 +71,8 @@ class CurrencyItemModelTest {
     fun checkOnError() {
         val resultItem = Exception()
 
-        `when`(itemModel.getCurrency("", result = responseCallback)).then {
-            responseCallback.onError(resultItem)
+        `when`(itemModel.getCurrency(org.mockito.kotlin.any(), org.mockito.kotlin.any())).then {
+            (it.arguments[1] as RepoResultCallback<CurrencyItem>).onError(resultItem)
         }
 
         itemModel.getCurrency("", result = responseCallback)
