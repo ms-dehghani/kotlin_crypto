@@ -1,6 +1,8 @@
 package ir.dehghani.kotlincrypto.model.items.currency.list.presenter
 
 import ir.dehghani.kotlincrypto.base.arch.BasePresenter
+import ir.dehghani.kotlincrypto.model.items.currency.item.model.CurrencyItemModel
+import ir.dehghani.kotlincrypto.model.items.currency.item.state.CurrencyItemState
 import ir.dehghani.kotlincrypto.model.items.currency.list.model.CurrencyListModel
 import ir.dehghani.kotlincrypto.model.items.currency.list.state.CurrencyListState
 import ir.dehghani.kotlincrypto.model.repository.Repository
@@ -10,8 +12,7 @@ import ir.dehghani.kotlincrypto.utils.runOnBackground
 import java.lang.Exception
 
 class CurrencyListPresenter private constructor(
-    model: CurrencyListModel = CurrencyListModel.getInstance(Repository.getInstance()),
-    state: CurrencyListState = CurrencyListState
+    model: CurrencyListModel, state: CurrencyListState
 ) : BasePresenter<CurrencyListModel, CurrencyListState>(model, state) {
 
     companion object {
@@ -19,9 +20,12 @@ class CurrencyListPresenter private constructor(
         @Volatile
         private var instance: CurrencyListPresenter? = null
 
-        fun getInstance() =
+        fun getInstance(
+            model: CurrencyListModel = CurrencyListModel.getInstance(Repository.getInstance()),
+            state: CurrencyListState = CurrencyListState
+        ) =
             instance ?: synchronized(this) {
-                instance ?: CurrencyListPresenter().also { instance = it }
+                instance ?: CurrencyListPresenter(model, state).also { instance = it }
             }
     }
 
