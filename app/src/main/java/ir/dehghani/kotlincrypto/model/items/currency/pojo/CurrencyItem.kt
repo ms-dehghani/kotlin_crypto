@@ -1,4 +1,4 @@
-package ir.dehghani.kotlincrypto.pojo
+package ir.dehghani.kotlincrypto.model.items.currency.pojo
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName

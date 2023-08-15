@@ -1,9 +1,8 @@
 package ir.dehghani.kotlincrypto.model.repository
 
 import ir.dehghani.kotlincrypto.model.FullModelImpl
-import ir.dehghani.kotlincrypto.pojo.CurrencyItem
+import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
-import org.json.JSONObject
 
 class Repository private constructor(private val serviceRepo: FullModelImpl?, private val localRepo: FullModelImpl?) : RepoImpl {
 

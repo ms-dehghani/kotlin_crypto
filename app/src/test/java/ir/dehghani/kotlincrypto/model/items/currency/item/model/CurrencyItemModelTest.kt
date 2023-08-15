@@ -1,7 +1,7 @@
 package ir.dehghani.kotlincrypto.model.items.currency.item.model
 
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
-import ir.dehghani.kotlincrypto.pojo.CurrencyItem
+import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import net.datafaker.Faker
 import org.json.JSONObject
 import org.junit.Assert.assertEquals

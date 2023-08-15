@@ -2,7 +2,7 @@ package ir.dehghani.kotlincrypto.model.repository.api
 
 import ir.dehghani.kotlincrypto.BuildConfig
 import ir.dehghani.kotlincrypto.model.FullModelImpl
-import ir.dehghani.kotlincrypto.pojo.CurrencyItem
+import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.model.repository.api.utility.RequestTypeEnum
 import ir.dehghani.kotlincrypto.model.repository.api.utility.WebserviceCaller
 import ir.dehghani.kotlincrypto.model.repository.api.utility.WebserviceMiddleware

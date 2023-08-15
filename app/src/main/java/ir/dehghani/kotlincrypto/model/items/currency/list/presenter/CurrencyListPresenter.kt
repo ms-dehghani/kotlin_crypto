@@ -5,7 +5,7 @@ import ir.dehghani.kotlincrypto.model.items.currency.list.model.CurrencyListMode
 import ir.dehghani.kotlincrypto.model.items.currency.list.state.CurrencyListState
 import ir.dehghani.kotlincrypto.model.repository.Repository
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
-import ir.dehghani.kotlincrypto.pojo.CurrencyItem
+import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.utils.runOnBackground
 import java.lang.Exception
 

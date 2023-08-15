@@ -1,9 +1,8 @@
 package ir.dehghani.kotlincrypto.views.main.presenter
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import ir.dehghani.kotlincrypto.base.arch.BaseViewModel
-import ir.dehghani.kotlincrypto.pojo.CurrencyItem
+import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 
 abstract class MainPagePresenterContract : BaseViewModel() {
 
