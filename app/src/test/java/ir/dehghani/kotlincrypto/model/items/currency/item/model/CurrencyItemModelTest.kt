@@ -1,20 +1,16 @@
 package ir.dehghani.kotlincrypto.model.items.currency.item.model
 
-import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
+import ir.dehghani.kotlincrypto.model.items.currency.getFakeCurrency
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
-import net.datafaker.Faker
-import org.json.JSONObject
+import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.Mockito.any
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 
 class CurrencyItemModelTest {
-
-    var faker = Faker()
 
     val itemModel = mock(CurrencyItemModel::class.java)
     val responseCallback = mock(RepoResultCallback::class.java) as RepoResultCallback<CurrencyItem>
@@ -58,7 +54,7 @@ class CurrencyItemModelTest {
 
         `when`(responseCallback.onResponse(org.mockito.kotlin.any())).then {
             item = it.arguments[0] as CurrencyItem
-            any()
+            null
         }
 
         responseCallback.onResponse(resultItem)
@@ -80,8 +76,6 @@ class CurrencyItemModelTest {
         verify(responseCallback, times(1)).onError(resultItem)
     }
 
-
-    private fun getFakeCurrency() = CurrencyItem(faker.number().positive().toString(), faker.name().firstName(), faker.name().lastName(), JSONObject())
 
 }
 

@@ -2,15 +2,14 @@ package ir.dehghani.kotlincrypto.model.items.currency.item.presenter
 
 import ir.dehghani.kotlincrypto.BaseClassTest
 import ir.dehghani.kotlincrypto.getOrAwaitValue
+import ir.dehghani.kotlincrypto.model.items.currency.getFakeCurrency
 import ir.dehghani.kotlincrypto.model.items.currency.item.CurrencyItemModelImpl
 import ir.dehghani.kotlincrypto.model.items.currency.item.model.CurrencyItemModel
 import ir.dehghani.kotlincrypto.model.items.currency.item.state.CurrencyItemState
-import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
+import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
-import net.datafaker.Faker
-import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -20,9 +19,7 @@ import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 
 
-class CurrencyItemPresenterClassTest : BaseClassTest() {
-
-    var faker = Faker()
+class CurrencyItemPresenterTest : BaseClassTest() {
 
     val repo = mock(CurrencyItemModelImpl::class.java)
     val model = mock(CurrencyItemModel::class.java)
@@ -79,8 +76,6 @@ class CurrencyItemPresenterClassTest : BaseClassTest() {
 
     }
 
-
-    private fun getFakeCurrency() = CurrencyItem(faker.number().positive().toString(), faker.name().firstName(), faker.name().lastName(), JSONObject())
 
 
 }
