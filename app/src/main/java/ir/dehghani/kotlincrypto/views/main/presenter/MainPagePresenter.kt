@@ -3,7 +3,7 @@ package ir.dehghani.kotlincrypto.views.main.presenter
 import androidx.lifecycle.MutableLiveData
 import ir.dehghani.kotlincrypto.model.items.currency.item.presenter.CurrencyItemPresenter
 import ir.dehghani.kotlincrypto.model.items.currency.list.presenter.CurrencyListPresenter
-import ir.dehghani.kotlincrypto.pojo.CurrencyItem
+import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 
 class MainPagePresenter(
     private var currencyListPresenter: CurrencyListPresenter = CurrencyListPresenter.getInstance(),

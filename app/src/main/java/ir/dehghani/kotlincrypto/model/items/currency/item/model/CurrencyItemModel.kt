@@ -2,7 +2,7 @@ package ir.dehghani.kotlincrypto.model.items.currency.item.model
 
 import ir.dehghani.kotlincrypto.base.arch.BaseModel
 import ir.dehghani.kotlincrypto.model.items.currency.item.CurrencyItemModelImpl
-import ir.dehghani.kotlincrypto.pojo.CurrencyItem
+import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 
 class CurrencyItemModel private constructor(private var repo: CurrencyItemModelImpl) : BaseModel() {
