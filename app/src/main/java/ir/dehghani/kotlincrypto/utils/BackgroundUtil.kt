@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 private val callQueue: ArrayList<String> = arrayListOf()
 
 @OptIn(DelicateCoroutinesApi::class)
-fun runOnBackground(callingFunction: () -> Unit, funID: String) {
+fun runOnBackground(callingFunction: suspend () -> Unit, funID: String) {
     GlobalScope.launch(Dispatchers.IO) {
         if (!callQueue.contains(funID)) {
             callQueue.add(funID)

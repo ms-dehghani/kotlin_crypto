@@ -21,11 +21,11 @@ class Repository private constructor(private val serviceRepo: FullModelImpl?, pr
     }
 
 
-    override fun getAllCurrency(result: RepoResultCallback<List<CurrencyItem>>) {
+    override suspend fun getAllCurrency(result: RepoResultCallback<List<CurrencyItem>>) {
         return serviceRepo!!.getAllCurrency(result)
     }
 
-    override fun getCurrency(ID: String, result: RepoResultCallback<CurrencyItem>) {
+    override suspend fun getCurrency(ID: String, result: RepoResultCallback<CurrencyItem>) {
         return serviceRepo!!.getCurrency(ID, result)
     }
 }

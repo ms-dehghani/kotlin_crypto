@@ -5,6 +5,6 @@ import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 
 interface CurrencyItemModelImpl {
 
-    fun getCurrency(ID : String, result: RepoResultCallback<CurrencyItem>)
+    suspend fun getCurrency(ID : String, result: RepoResultCallback<CurrencyItem>)
 
 }
