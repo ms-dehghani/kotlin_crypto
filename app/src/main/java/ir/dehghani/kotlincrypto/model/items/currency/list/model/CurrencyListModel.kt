@@ -18,7 +18,7 @@ class CurrencyListModel(private val repo: CurrencyListModelImpl) : BaseModel() {
             }
     }
 
-    fun getAllCurrency(result: RepoResultCallback<List<CurrencyItem>>) {
+    suspend fun getAllCurrency(result: RepoResultCallback<List<CurrencyItem>>) {
         repo.getAllCurrency(result)
     }
 

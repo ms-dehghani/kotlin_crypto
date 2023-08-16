@@ -18,7 +18,7 @@ class CurrencyItemModel private constructor(private var repo: CurrencyItemModelI
             }
     }
 
-    fun getCurrency(ID: String, result: RepoResultCallback<CurrencyItem>) {
+    suspend fun getCurrency(ID: String, result: RepoResultCallback<CurrencyItem>) {
         repo.getCurrency(ID, result)
     }
 
