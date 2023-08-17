@@ -16,7 +16,7 @@ abstract class BaseActivity<T : BaseViewModel> : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = setViewModel();
+        viewModel = setViewModel()
     }
 
 }

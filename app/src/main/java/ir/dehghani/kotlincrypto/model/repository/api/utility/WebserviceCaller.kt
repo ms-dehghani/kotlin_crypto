@@ -40,13 +40,13 @@ class WebserviceCaller private constructor(private val client: OkHttpClient) {
         val response = client.newCall(requestBuilder.build()).execute()
         return if (response.isSuccessful) {
             var data = response.body?.string()
-            try {
-                val jsonArray = JSONArray(data)
-                val jObj = JSONObject("{ \"data\":" + data + "}")
-                jsonArray.put(jObj)
-                data = jsonArray.toString();
-            } catch (_: Exception) {
-            }
+//            try {
+//                val jsonArray = JSONArray()
+//                val jObj = JSONObject("{ \"data\":" + JSONObject(data).getJSONArray("data").toString() + "}")
+//                jsonArray.put(jObj)
+//                data = jsonArray.toString();
+//            } catch (_: Exception) {
+//            }
             WebserviceResponseModel(true, response.message, JSONObject(data.toString()).get("data"))
         } else {
             WebserviceResponseModel(false, response.message, "")

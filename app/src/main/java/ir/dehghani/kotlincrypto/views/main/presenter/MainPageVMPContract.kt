@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import ir.dehghani.kotlincrypto.base.arch.BaseViewModel
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 
-abstract class MainPagePresenterContract : BaseViewModel() {
+abstract class MainPageVMPContract : BaseViewModel() {
 
     abstract fun getAllCurrency()
 

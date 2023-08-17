@@ -17,10 +17,7 @@ class CurrencyItemPresenter private constructor(model: CurrencyItemModel, state:
         @Volatile
         private var instance: CurrencyItemPresenter? = null
 
-        fun getInstance(
-            model: CurrencyItemModel = CurrencyItemModel.getInstance(Repository.getInstance()),
-            state: CurrencyItemState = CurrencyItemState
-        ) =
+        fun getInstance(model: CurrencyItemModel, state: CurrencyItemState) =
             instance ?: synchronized(this) {
                 instance ?: CurrencyItemPresenter(model, state).also { instance = it }
             }
