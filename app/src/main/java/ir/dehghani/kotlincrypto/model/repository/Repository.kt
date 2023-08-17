@@ -4,7 +4,7 @@ import ir.dehghani.kotlincrypto.model.FullModelImpl
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 
-class Repository private constructor(private val serviceRepo: FullModelImpl?, private val localRepo: FullModelImpl?) : RepoImpl {
+class Repository private constructor(val serviceRepo: FullModelImpl, val localRepo: FullModelImpl?) : RepoImpl {
 
     companion object {
 
@@ -15,17 +15,17 @@ class Repository private constructor(private val serviceRepo: FullModelImpl?, pr
             return instance!!
         }
 
-        fun init(serviceRepo: FullModelImpl?, localRepo: FullModelImpl?) {
+        fun init(serviceRepo: FullModelImpl, localRepo: FullModelImpl?) {
             instance = Repository(serviceRepo, localRepo)
         }
     }
 
 
     override suspend fun getAllCurrency(result: RepoResultCallback<List<CurrencyItem>>) {
-        return serviceRepo!!.getAllCurrency(result)
+        return serviceRepo.getAllCurrency(result)
     }
 
     override suspend fun getCurrency(ID: String, result: RepoResultCallback<CurrencyItem>) {
-        return serviceRepo!!.getCurrency(ID, result)
+        return serviceRepo.getCurrency(ID, result)
     }
 }

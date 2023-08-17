@@ -13,15 +13,18 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import ir.dehghani.kotlincrypto.base.arch.BaseActivity
 import ir.dehghani.kotlincrypto.ui.theme.KotlinCryptoTheme
-import ir.dehghani.kotlincrypto.views.main.presenter.MainPagePresenter
-import ir.dehghani.kotlincrypto.views.main.presenter.MainPagePresenterContract
+import ir.dehghani.kotlincrypto.views.main.presenter.MainPageVMP
+import ir.dehghani.kotlincrypto.views.main.presenter.MainPageVMPContract
 import kotlinx.coroutines.DelicateCoroutinesApi
+import org.koin.android.ext.android.getKoin
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<MainPagePresenterContract>() {
+class MainActivity : BaseActivity<MainPageVMPContract>() {
 
     var count = 0
-    override fun setViewModel(): MainPagePresenterContract {
-        return ViewModelProvider(this)[MainPagePresenter::class.java]
+
+    override fun setViewModel(): MainPageVMPContract {
+        return getKoin().get<MainPageVMP>()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,13 +49,13 @@ class MainActivity : BaseActivity<MainPagePresenterContract>() {
 }
 
 @OptIn(DelicateCoroutinesApi::class)
-fun doInBackground(presenter: MainPagePresenterContract) {
-    presenter.getAllCurrency()
+fun doInBackground(presenter: MainPageVMPContract?) {
+    presenter!!.getAllCurrency()
 }
 
 
 @Composable
-fun Greeting(presenter: MainPagePresenterContract, name: String, modifier: Modifier = Modifier) {
+fun Greeting(presenter: MainPageVMPContract?, name: String, modifier: Modifier = Modifier) {
     ClickableText(
         text = AnnotatedString("Hello $name!"),
         modifier = modifier,

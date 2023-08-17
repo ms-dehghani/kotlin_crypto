@@ -5,17 +5,17 @@ import ir.dehghani.kotlincrypto.model.items.currency.item.presenter.CurrencyItem
 import ir.dehghani.kotlincrypto.model.items.currency.list.presenter.CurrencyListPresenter
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 
-class MainPagePresenter(
-    private var currencyListPresenter: CurrencyListPresenter = CurrencyListPresenter.getInstance(),
-    private var currencyItemPresenter: CurrencyItemPresenter = CurrencyItemPresenter.getInstance()
-) : MainPagePresenterContract() {
+class MainPageVMP(
+    private var currencyListPresenter: CurrencyListPresenter,
+    private var currencyItemPresenter: CurrencyItemPresenter
+) : MainPageVMPContract() {
 
 
     override fun getAllCurrency() {
         currencyListPresenter.getAllCurrency()
     }
 
-    override fun getCurrencyListLiveData(): MutableLiveData<List<CurrencyItem>>{
+    override fun getCurrencyListLiveData(): MutableLiveData<List<CurrencyItem>> {
         return currencyListPresenter.getState().getItemList()
     }
 
@@ -23,10 +23,9 @@ class MainPagePresenter(
         currencyItemPresenter.getCurrency(ID)
     }
 
-    override fun getCurrencyItemLiveData(): MutableLiveData<CurrencyItem>{
+    override fun getCurrencyItemLiveData(): MutableLiveData<CurrencyItem> {
         return currencyItemPresenter.getState().getItemDetail()
     }
-
 
 
 }
