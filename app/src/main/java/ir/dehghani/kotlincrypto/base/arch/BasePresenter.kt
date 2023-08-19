@@ -1,8 +1,6 @@
 package ir.dehghani.kotlincrypto.base.arch
-abstract class BasePresenter<Model : BaseModel, State : BaseState>(private val model: Model, private val state: State) {
 
-    fun getState() = state
-
+abstract class BasePresenter<Model : BaseModel>(private val model: Model) {
     fun getModel() = model
 
 }

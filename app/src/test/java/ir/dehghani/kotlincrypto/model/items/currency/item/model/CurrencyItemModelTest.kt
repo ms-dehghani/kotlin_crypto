@@ -3,12 +3,15 @@ package ir.dehghani.kotlincrypto.model.items.currency.item.model
 import ir.dehghani.kotlincrypto.model.items.currency.getFakeCurrency
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
+import org.mockito.kotlin.any
 
 class CurrencyItemModelTest {
 
@@ -17,7 +20,7 @@ class CurrencyItemModelTest {
 
 
     @Test
-    fun getCurrency() {
+    fun getCurrency() = runTest(UnconfinedTestDispatcher()){
         val resultItem = getFakeCurrency()
 
 
@@ -34,7 +37,7 @@ class CurrencyItemModelTest {
     }
 
     @Test
-    fun checkOnSuccess() {
+    fun checkOnSuccess() = runTest(UnconfinedTestDispatcher()){
         val resultItem = getFakeCurrency()
 
         `when`(itemModel.getCurrency(org.mockito.kotlin.any(), org.mockito.kotlin.any())).then {
@@ -64,10 +67,10 @@ class CurrencyItemModelTest {
 
 
     @Test
-    fun checkOnError() {
+    fun checkOnError() = runTest(UnconfinedTestDispatcher()){
         val resultItem = Exception()
 
-        `when`(itemModel.getCurrency(org.mockito.kotlin.any(), org.mockito.kotlin.any())).then {
+        `when`(itemModel.getCurrency(any(), any())).then {
             (it.arguments[1] as RepoResultCallback<CurrencyItem>).onError(resultItem)
         }
 

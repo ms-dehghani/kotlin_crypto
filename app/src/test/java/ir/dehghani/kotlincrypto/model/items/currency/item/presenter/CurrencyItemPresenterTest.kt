@@ -5,9 +5,9 @@ import ir.dehghani.kotlincrypto.getOrAwaitValue
 import ir.dehghani.kotlincrypto.model.items.currency.getFakeCurrency
 import ir.dehghani.kotlincrypto.model.items.currency.item.CurrencyItemModelImpl
 import ir.dehghani.kotlincrypto.model.items.currency.item.model.CurrencyItemModel
-import ir.dehghani.kotlincrypto.model.items.currency.item.state.CurrencyItemState
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -32,8 +32,7 @@ class CurrencyItemPresenterTest : BaseClassTest() {
     @Test
     fun checkSuccessResponse() = runTest(UnconfinedTestDispatcher()) {
 
-        val stateManager = CurrencyItemState
-        val presenter = CurrencyItemPresenter.getInstance(model = model, state = stateManager)
+        val presenter = CurrencyItemPresenter.getInstance(model = model)
 
         val itemResponse = getFakeCurrency()
 
@@ -41,8 +40,8 @@ class CurrencyItemPresenterTest : BaseClassTest() {
             (it.arguments[1] as RepoResultCallback<CurrencyItem>).onResponse(itemResponse)
         }
 
-        presenter.getCurrency("")
-        val value = stateManager.getItemDetail().getOrAwaitValue()
+
+        val value = presenter.getCurrency("").getOrAwaitValue()
 
         assert(value != null)
         assert(value.id == itemResponse.id)
@@ -50,7 +49,7 @@ class CurrencyItemPresenterTest : BaseClassTest() {
 
 
     @Test
-    fun checkUnSuccessResponse() {
+    fun checkUnSuccessResponse() = runTest(UnconfinedTestDispatcher()) {
 
         val fakeResult = getFakeCurrency()
         lateinit var resultItem: Exception
@@ -75,7 +74,6 @@ class CurrencyItemPresenterTest : BaseClassTest() {
         assertEquals(resultItem.message, "")
 
     }
-
 
 
 }
