@@ -5,7 +5,6 @@ import ir.dehghani.kotlincrypto.getOrAwaitValue
 import ir.dehghani.kotlincrypto.model.items.currency.getFakeCurrencyList
 import ir.dehghani.kotlincrypto.model.items.currency.list.CurrencyListModelImpl
 import ir.dehghani.kotlincrypto.model.items.currency.list.model.CurrencyListModel
-import ir.dehghani.kotlincrypto.model.items.currency.list.state.CurrencyListState
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -32,8 +31,7 @@ class CurrencyListPresenterTest : BaseClassTest() {
     @Test
     fun checkSuccessResponse() = runTest(UnconfinedTestDispatcher()) {
 
-        val stateManager = CurrencyListState
-        val presenter = CurrencyListPresenter.getInstance(model = model, state = stateManager)
+        val presenter = CurrencyListPresenter.getInstance(model = model)
 
         val itemResponse = getFakeCurrencyList()
 
@@ -41,8 +39,7 @@ class CurrencyListPresenterTest : BaseClassTest() {
             (it.arguments[0] as RepoResultCallback<List<CurrencyItem>>).onResponse(itemResponse)
         }
 
-        presenter.getAllCurrency()
-        val value = stateManager.getItemList().getOrAwaitValue()
+        val value = presenter.getAllCurrency().getOrAwaitValue()
 
         assert(value != null)
         assert(value.count() == itemResponse.count())
@@ -53,7 +50,7 @@ class CurrencyListPresenterTest : BaseClassTest() {
 
 
     @Test
-    fun checkUnSuccessResponse() {
+    fun checkUnSuccessResponse() = runTest(UnconfinedTestDispatcher()) {
 
         lateinit var resultItem: Exception
 

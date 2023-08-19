@@ -3,12 +3,15 @@ package ir.dehghani.kotlincrypto.model.items.currency.list.model
 import ir.dehghani.kotlincrypto.model.items.currency.getFakeCurrencyList
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
+import org.mockito.kotlin.any
 
 class CurrencyListModelTest {
 
@@ -16,14 +19,14 @@ class CurrencyListModelTest {
     val responseCallback = mock(RepoResultCallback::class.java) as RepoResultCallback<List<CurrencyItem>>
 
     @Test
-    fun getCurrencyList() {
+    fun getCurrencyList() = runTest(UnconfinedTestDispatcher()){
         val resultItem = getFakeCurrencyList()
 
-        `when`(itemModel.getAllCurrency(org.mockito.kotlin.any())).then {
+        `when`(itemModel.getAllCurrency(any())).then {
             (it.arguments[0] as RepoResultCallback<List<CurrencyItem>>).onResponse(resultItem)
         }
 
-        `when`(responseCallback.onResponse(org.mockito.kotlin.any())).then {
+        `when`(responseCallback.onResponse(any())).then {
             assertEquals((it.arguments[0] as List<CurrencyItem>).count(), resultItem.count())
         }
 
@@ -32,7 +35,7 @@ class CurrencyListModelTest {
     }
 
     @Test
-    fun checkOnSuccess() {
+    fun checkOnSuccess() = runTest(UnconfinedTestDispatcher()){
         val resultItem = getFakeCurrencyList()
 
         `when`(itemModel.getAllCurrency(org.mockito.kotlin.any())).then {
@@ -63,7 +66,7 @@ class CurrencyListModelTest {
 
 
     @Test
-    fun checkOnError() {
+    fun checkOnError() = runTest(UnconfinedTestDispatcher()){
         val resultItem = Exception()
 
         `when`(itemModel.getAllCurrency(org.mockito.kotlin.any())).then {

@@ -9,6 +9,6 @@ import org.koin.dsl.module
 
 
 val presenterModule = module {
-    single {  CurrencyListPresenter.getInstance(CurrencyListModel.getInstance(getKoin().get<Repository>()),get()) }
-    single {  CurrencyItemPresenter.getInstance(CurrencyItemModel.getInstance(getKoin().get<Repository>()),get()) }
+    single {  CurrencyListPresenter.getInstance(CurrencyListModel.getInstance(getKoin().get<Repository>())) }
+    single {  CurrencyItemPresenter.getInstance(CurrencyItemModel.getInstance(getKoin().get<Repository>())) }
 }
