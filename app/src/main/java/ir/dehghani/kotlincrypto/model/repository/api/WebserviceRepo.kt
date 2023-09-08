@@ -1,5 +1,6 @@
 package ir.dehghani.kotlincrypto.model.repository.api
 
+import com.google.gson.reflect.TypeToken
 import ir.dehghani.kotlincrypto.BuildConfig
 import ir.dehghani.kotlincrypto.model.FullModelImpl
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
@@ -19,7 +20,8 @@ class WebserviceRepo(private val webserviceCaller: WebserviceCaller) : FullModel
     override suspend fun getAllCurrency(result: RepoResultCallback<List<CurrencyItem>>) {
         serviceMiddleware.call(
             callingFunction = { webserviceCaller.call("${BuildConfig.BASE_URL}/$version1/cryptocurrency/listings/latest", "", RequestTypeEnum.Get) },
-            resultCallback = result
+            resultCallback = result,
+            object : TypeToken<List<CurrencyItem>>() {}
         )
     }
 
@@ -27,6 +29,7 @@ class WebserviceRepo(private val webserviceCaller: WebserviceCaller) : FullModel
         if (ID.isEmpty()) {
             result.onError(Exception("ID is empty!"))
         } else
-            serviceMiddleware.call(callingFunction = { webserviceCaller.call("${BuildConfig.BASE_URL}/$version1", "", RequestTypeEnum.Get) }, result)
+            serviceMiddleware.call(callingFunction = { webserviceCaller.call("${BuildConfig.BASE_URL}/$version1", "", RequestTypeEnum.Get) }, result,
+                object : TypeToken<CurrencyItem>() {})
     }
 }
