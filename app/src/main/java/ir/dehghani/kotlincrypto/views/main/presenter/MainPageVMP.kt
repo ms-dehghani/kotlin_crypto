@@ -4,12 +4,15 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.dehghani.kotlincrypto.model.items.currency.item.presenter.CurrencyItemPresenter
 import ir.dehghani.kotlincrypto.model.items.currency.list.presenter.CurrencyListPresenter
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.views.main.state.MainPageState
+import javax.inject.Inject
 
-class MainPageVMP(
+@HiltViewModel
+class MainPageVMP @Inject constructor(
     private var currencyListPresenter: CurrencyListPresenter,
     private var currencyItemPresenter: CurrencyItemPresenter
 ) : MainPageVMPContract() {

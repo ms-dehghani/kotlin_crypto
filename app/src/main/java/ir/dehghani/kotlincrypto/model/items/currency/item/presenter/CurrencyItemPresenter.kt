@@ -8,21 +8,11 @@ import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.utils.runOnBackground
 import java.lang.Exception
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CurrencyItemPresenter private constructor(model: CurrencyItemModel) :
+class CurrencyItemPresenter @Inject constructor(model: CurrencyItemModel) :
     BasePresenter<CurrencyItemModel>(model) {
-
-    companion object {
-
-        @Volatile
-        private var instance: CurrencyItemPresenter? = null
-
-        fun getInstance(model: CurrencyItemModel) =
-            instance ?: synchronized(this) {
-                instance ?: CurrencyItemPresenter(model).also { instance = it }
-            }
-    }
-
 
     fun getCurrency(ID: String): LiveData<CurrencyItem> {
 

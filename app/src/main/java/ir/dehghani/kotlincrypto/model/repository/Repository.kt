@@ -3,23 +3,11 @@ package ir.dehghani.kotlincrypto.model.repository
 import ir.dehghani.kotlincrypto.model.FullModelImpl
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class Repository private constructor(val serviceRepo: FullModelImpl, val localRepo: FullModelImpl?) : RepoImpl {
-
-    companion object {
-
-        @Volatile
-        private var instance: Repository? = null
-
-        fun getInstance(): Repository {
-            return instance!!
-        }
-
-        fun init(serviceRepo: FullModelImpl, localRepo: FullModelImpl?) {
-            instance = Repository(serviceRepo, localRepo)
-        }
-    }
-
+@Singleton
+class Repository @Inject constructor(val serviceRepo: FullModelImpl, val localRepo: FullModelImpl?) : RepoImpl {
 
     override suspend fun getAllCurrency(result: RepoResultCallback<List<CurrencyItem>>) {
         return serviceRepo.getAllCurrency(result)
