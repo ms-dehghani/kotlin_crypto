@@ -7,20 +7,11 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import org.json.JSONArray
 import org.json.JSONObject
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class WebserviceCaller private constructor(private val client: OkHttpClient) {
-
-    companion object {
-
-        @Volatile
-        private lateinit var instance: WebserviceCaller
-
-        fun init(client: OkHttpClient) {
-            instance = WebserviceCaller(client)
-        }
-
-        fun getInstance() = instance
-    }
+@Singleton
+class WebserviceCaller @Inject constructor(private val client: OkHttpClient) {
 
     fun call(url: String, requestBody: String, requestType: RequestTypeEnum): WebserviceResponseModel<Any> {
         val requestBuilder = Request.Builder()

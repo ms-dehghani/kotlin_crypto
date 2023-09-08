@@ -9,9 +9,10 @@ import ir.dehghani.kotlincrypto.model.repository.api.utility.WebserviceCaller
 import ir.dehghani.kotlincrypto.model.repository.api.utility.WebserviceMiddleware
 import ir.dehghani.kotlincrypto.model.repository.utils.RepoResultCallback
 import java.lang.Exception
+import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class WebserviceRepo(private val webserviceCaller: WebserviceCaller) : FullModelImpl {
+class WebserviceRepo @Inject constructor(private val webserviceCaller: WebserviceCaller) : FullModelImpl {
 
     private val serviceMiddleware: WebserviceMiddleware = WebserviceMiddleware
 

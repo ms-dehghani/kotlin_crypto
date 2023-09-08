@@ -2,6 +2,7 @@ package ir.dehghani.kotlincrypto.views.main
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,22 +18,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import dagger.hilt.android.AndroidEntryPoint
 import ir.dehghani.kotlincrypto.base.arch.BaseActivity
 import ir.dehghani.kotlincrypto.model.items.currency.pojo.CurrencyItem
 import ir.dehghani.kotlincrypto.ui.theme.KotlinCryptoTheme
 import ir.dehghani.kotlincrypto.views.main.presenter.MainPageVMP
 import ir.dehghani.kotlincrypto.views.main.presenter.MainPageVMPContract
-import org.koin.android.ext.android.getKoin
 
 
 var count = 0
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<MainPageVMPContract>() {
 
-
-    override fun setViewModel(): MainPageVMPContract {
-        return getKoin().get<MainPageVMP>()
-    }
+    private val viewModel: MainPageVMP by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +40,12 @@ class MainActivity : BaseActivity<MainPageVMPContract>() {
             KotlinCryptoTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    listView(getViewModel())
+                    listView(viewModel)
                 }
             }
         }
 
-        getViewModel().getAllCurrency()
+        viewModel.getAllCurrency()
 
     }
 
