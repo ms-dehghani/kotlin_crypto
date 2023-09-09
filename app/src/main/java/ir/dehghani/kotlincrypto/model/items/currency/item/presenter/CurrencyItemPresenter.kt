@@ -11,6 +11,7 @@ import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@Singleton
 class CurrencyItemPresenter @Inject constructor(model: CurrencyItemModel) :
     BasePresenter<CurrencyItemModel>(model) {
 
