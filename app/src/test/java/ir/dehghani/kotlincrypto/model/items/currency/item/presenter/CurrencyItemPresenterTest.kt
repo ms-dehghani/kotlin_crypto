@@ -21,18 +21,17 @@ import org.mockito.Mockito.`when`
 
 class CurrencyItemPresenterTest : BaseClassTest() {
 
-    val repo = mock(CurrencyItemModelImpl::class.java)
     val model = mock(CurrencyItemModel::class.java)
 
     @Before
     fun init() {
-        setMock(CurrencyItemModel.getInstance(repo), CurrencyItemModel::class.java.getDeclaredField("instance"))
+
     }
 
     @Test
     fun checkSuccessResponse() = runTest(UnconfinedTestDispatcher()) {
 
-        val presenter = CurrencyItemPresenter.getInstance(model = model)
+        val presenter = CurrencyItemPresenter(model = model)
 
         val itemResponse = getFakeCurrency()
 

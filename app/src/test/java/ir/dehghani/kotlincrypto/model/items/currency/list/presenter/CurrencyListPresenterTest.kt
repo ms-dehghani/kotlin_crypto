@@ -25,13 +25,12 @@ class CurrencyListPresenterTest : BaseClassTest() {
 
     @Before
     fun init() {
-        setMock(CurrencyListModel.getInstance(repo), CurrencyListModel::class.java.getDeclaredField("instance"))
     }
 
     @Test
     fun checkSuccessResponse() = runTest(UnconfinedTestDispatcher()) {
 
-        val presenter = CurrencyListPresenter.getInstance(model = model)
+        val presenter = CurrencyListPresenter(model = model)
 
         val itemResponse = getFakeCurrencyList()
 
