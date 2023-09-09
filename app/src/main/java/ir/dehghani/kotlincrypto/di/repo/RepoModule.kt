@@ -24,7 +24,7 @@ class RepoModule {
     fun provideLocalRepo(webserviceCaller: WebserviceCaller) = WebserviceRepo(webserviceCaller)
 
     @Provides
-    fun provideRepository(serviceRepo: WebserviceRepo, localRepo: WebserviceRepo?): Repository {
+    fun provideRepository(@ServiceRepo serviceRepo: WebserviceRepo,@LocalRepo localRepo: WebserviceRepo?): Repository {
         return Repository(serviceRepo, localRepo)
     }
 
